@@ -115,15 +115,12 @@ postTree<-(veg2016$T1+veg2016$T2+veg2016$T3)/3
 GPSptDateMatrix<- post_surveys %>% 
 distinct(GPSpt,Date,Time) %>%                                     
 unstack(Date~GPSpt) 
-
-matrix(unlist(GPSptDateMatrix),ncol=14,byrow=TRUE)
  
-
-## convert from list to empty data frame 
-dates_visited_by_site<-data.frame(matrix(ncol=14, nrow=24))
-#row.names(dates_visited_by_site)<- distinct(post_surveys,GPSpt)
+## convert from list to data frame 
+dates_visited_by_site<-data.frame()
 for (i in 1:length(GPSptDateMatrix)){
-  dates_visited_by_site[i]<- GPSptDateMatrix[[i]]
+  dates_visited_by_site<-rbind(dates_visited_by_site,GPSptDateMatrix[[i]])
+  #dates_visited_by_site[,i]<- GPSptDateMatrix[[i]]
 }
 
 rowMax <- max(sapply(GPSptDateMatrix, length))         ## rowMax=5, maximum number of visits to a site in the dataset
