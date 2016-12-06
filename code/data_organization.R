@@ -108,15 +108,15 @@ postTree<-(veg2016$T1+veg2016$T2+veg2016$T3)/3
 
 
 ###-----------------------------------------------------------------------------------
-## manipulate post_surveys to get a site*period*visit*species matrix and a table
+## manipulate post_surveys to get a site*period*visit*species array and a table
 ## of sampling covariates suitable for occupancy modeling
 ##------------------------------------------------------------------------------------                                   
 ##create a list of the dates when each location was sampled
 GPSptDateMatrix<- post_surveys %>% 
 distinct(GPSpt,Date,Time) %>%                                     
-unstack(Date~GPSpt) %>%
-  GPSptDateMatrix[[1]]
-matrix(unlist(GPSptDateMatrix),ncol=14,byrow=TRUE, use.names=TRUE)
+unstack(Date~GPSpt) 
+
+matrix(unlist(GPSptDateMatrix),ncol=14,byrow=TRUE)
  
 
 ## convert from list to empty data frame 
