@@ -39,13 +39,16 @@ library(jagsUI)
 ## data--------------------------------------------------------------
 ## bird surveys
 pre_surveys<-read.csv("./data/Swaziland bird data_proofed.csv")
-## import 371 sites *5 visits *209 species array
+## import 371 sites * 5 visits * 209 species array
 ## built from pre_surveys in a separate
-## piece of code- written for analyzing the full data set
+## piece of code- written for analyzing a landscape-scale data set
+## This will be subsetted later.
 detectHists <- read.table("./data/abunhists20160919", quote="\"", 
                     comment.char="", stringsAsFactors=FALSE)
 post_surveys<-read.csv("./data/ExperimentalSurveys.csv")
 noise_control_surveys<-read.csv("./data/ProcControlSurveys.csv")
+
+## vampling covariates
 pre_sampling_covs<-read.csv("./data/SamplingCovs.csv")
 ##post_sampling_covs<-read.csv("./")                  ######## need to locate and arrange
 
@@ -57,7 +60,8 @@ veg2016<-read.csv("./data/veg2016.csv")
 nests<-read.csv("./data/Nests.csv")
 nest_effort<-read.csv("./data/search_efforts.csv")
 
-# traits
+## bird foraging traits and masses collected from Hockey et al. 2005, i.e.
+## Robert's Birds of Southern Africa, 5th edition.
 traits<-read.csv("./data/TraitData.csv")
 ##----------------------------------------------------------------------------------
 ##----------------------------------------------------------------------------------
@@ -77,18 +81,18 @@ points<-sort(unique(pre_surveys$GPSpt))
 ## during the field experiment
 detectHists<-detectHists[which((points) %in% included),,]  
 ## get unique species names for this data set
-pre_surveys<-pre_surveys[,1:5]  ## drop the NumOut and Total columns
+pre_surveys<-pre_surveys[,1:5]  ## drop the NumOut and Total columns so the spatial scale of the 
+                                ## bird data and the vegetation measures match
 SpeciesNames<-sort(unique(pre_surveys$Species)) 
 ## drop species not detected within 50m; indices from a separate script
 SpeciesNames<-SpeciesNames[c(-1,-7,-8,-22,-60,-62,-88,-99,-117,-125,-129,-136,-139,
                                   -143,-165,-172,-175)]
 ## subset the surveys to remove additional species not detected at any experimental points
 pre_surveys<-pre_surveys[pre_surveys$GPSpt %in% included,]
-## identify which species slices of detectHists to keep and drop 5th visit column
-## all of one of which are NA because not surveyed
+## identify which species slices of detectHists to keep and drop 5th visit column because
+## all but one are NA because not surveyed
 detectHists<-detectHists[,1:4,which((SpeciesNames %in% unique(pre_surveys$Species))==TRUE )]
 pre_survey_species<-subset(SpeciesNames,SpeciesNames %in% unique(pre_surveys$Species)==TRUE )
-#names(detectHists)<-c(rep(NA,24),rep(NA,4),pre_survey_species)
 
 ## subset pre-treatment vegetation data
 veg2015<-veg2015[,1:42]        ## drop the notes column
