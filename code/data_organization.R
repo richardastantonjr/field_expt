@@ -127,14 +127,6 @@ for (i in 1:length(GPSptDateMatrix)){
   num_visits[i]<-length(GPSptDateMatrix[[i]])
 }
  
-## convert from list to data frame 
-## this is not doing what I expected at all because the list elements do not seem to be in order
-## and the uneven sampling is not captured.
-dates_visited_by_site<-data.frame()
-for (i in 1:length(GPSptDateMatrix)){
-  dates_visited_by_site<-rbind(dates_visited_by_site,GPSptDateMatrix[[i]])
-}
-
 rowMax <- max(sapply(GPSptDateMatrix, length))         ## rowMax=5, maximum number of visits to a site in the dataset
 
 SiteVisitDateMatrix<-do.call(rbind, lapply(GPSptDateMatrix, function(x){ 
