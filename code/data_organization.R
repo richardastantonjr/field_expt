@@ -111,6 +111,22 @@ postGrass<-(veg2016$G1+veg2016$G2.1+veg2016$G3.1)/3
 preTree<-(veg2015$TreeCover1+veg2015$TreeCover2+veg2015$TreeCover3)/3
 postTree<-(veg2016$T1+veg2016$T2+veg2016$T3)/3
 
+## subset the trait data
+traits<-filter(traits,traits$Species %in% unique(pre_surveys$Species)) 
+traits<- traits[,c(1:6,9,19,20,22)]
+traits[is.na(traits)] <- 0 
+
+## determine if a species is a predator
+predator<-rep(NA, nrow(traits))
+for (i in 1:nrow(traits)){
+  if((traits[i,8]>0) || (traits[i,9]>0) || (traits[i,10]>0)){
+    predator[i]=1
+  } else {
+    predator[i] =0} 
+}
+traits$predator<-predator
+traits<-traits[,c(1:7,11)]
+
 
 ###-----------------------------------------------------------------------------------
 ## manipulate post_surveys to get a site*period*visit*species array and a table
@@ -127,6 +143,10 @@ for (i in 1:length(GPSptDateMatrix)){
   num_visits[i]<-length(GPSptDateMatrix[[i]])
 }
  
+
+
+
+
 rowMax <- max(sapply(GPSptDateMatrix, length))         ## rowMax=5, maximum number of visits to a site in the dataset
 
 SiteVisitDateMatrix<-do.call(rbind, lapply(GPSptDateMatrix, function(x){ 
@@ -135,46 +155,13 @@ SiteVisitDateMatrix<-do.call(rbind, lapply(GPSptDateMatrix, function(x){
 SiteVisitDateMatrix<-data.frame(SiteVisitDateMatrix)
 SiteVisitDateMatrix$GPSpt<-rownames(GPSptDateMatrix)  
 
-bulbul_surveys<-subset(post_surveys, species="Dark-capped Bulbul")
-siteByDate_bulbul <- xtabs(NumIn ~ GPSpt+Date, data=bulbul_surveys) 
-
-
-
-for (i in 1:length(GPSptDateMatrix)){
-  siteByDate_bulbul[i,]<-subset(siteByDate_bulbul[i,], 
-       as.integer(names(siteByDate_bulbul[i,])) %in% as.integer(unlist(GPSptDateMatrix[i]))==TRUE)                                             
-}
-
-
 ## create a matrix of values indicating if a GPSpt and Date combination is valid
 Junk<-XSurveys
 for (i in 1:length(unique(Surveys$Species))){
   for (j in 1:length(unique(Surveys$GPSpt))){
     Junk[j,,i]<-colnames(XSurveys[,,i]) %in% SiteVisitDateMatrix[j,1:5]}}
 
-
-
-
-
-
 ## work with sampling covariates for the experimental surveys
-
-##-----------------------------------------------------------
-## subset the trait data
-##-----------------------------------------------------------
-traits<-filter(traits,traits$Species %in% unique(pre_surveys$Species)) 
-  traits<- traits[,c(1:6,9,19,20,22)]
-  traits[is.na(traits)] <- 0 
-  
-  predator<-rep(NA, nrow(traits))
-  for (i in 1:nrow(traits)){
-  if((traits[i,8]>0) || (traits[i,9]>0) || (traits[i,10]>0)){
-    predator[i]=1
-    } else {
-    predator[i] =0} 
-  }
-  traits$predator<-predator
-  traits<-traits[,c(1:7,11)]
 
 ##-----------------------------------------------------------------------------------------------------------
 ## Naive occupancy for the pre-surveys
