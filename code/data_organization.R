@@ -13,19 +13,19 @@
 ## season as part of a larger study. We then surveyed birds during the experiment in a manner 
 ## amenable to analysis using a robust design allowing for temporary immigration and emigration
 ## of species, in part because we were interested in temporal dynamics but also because the
-## immediate response to the treatment was of interest. Surveys therefore consisted of 6 
+## immediate response to the treatment was of interest. Surveys therefore consisted of 5-6 
 ## replicate periods between 21 October and 14 December 2015, with two surveys in one day per 
 ## period. We assumed closure in occupancy/abundance within a period but not between periods. 
 ## we recorded all species detected within 100m and binned the detection bands of 0-50 and 
 ## 51-100m. Procedural control surveys were completed between 9 and 12 January 2016.
 
 ## Nest searching: RAS searched for nests, focusing on species that appeared to be responding
-## to the treatments in terms of abundance/detectability- (based on pivottables) He searched
+## to the treatments in terms of abundance/detectability- (based on pivot tables) He searched
 ## for 6 hrs per point within 50m of each point, divided into 1-4 hr stints allocated 
 ## throughout the day and across dates to minimize bias in effort across points and treatments
 ## He located nests using behavioral cues, e.g. following birds carrying food and nest material,
 ## listening for calls on nests, observing relief provided when birds switched incubation 
-## duties, and observing nests located haphazardly from a distance to determine if they were 
+## duties, and observing haphazardly-discovered nests from a distance to determine if they were 
 ## active. We only recorded active nests. At each active nest we recorded the stage at which 
 ## it was discovered, i.e. empty, eggs, nestlings, the date, and the species.
 
