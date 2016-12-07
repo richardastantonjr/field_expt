@@ -133,7 +133,7 @@ traits<-traits[,c(1:7,11)]
 ## of sampling covariates suitable for occupancy modeling
 ##------------------------------------------------------------------------------------                                   
 ##create a list of the dates when each location was sampled
-GPSptDateMatrix<- post_surveys %>% 
+GPSptDateList<- post_surveys %>% 
 distinct(GPSpt,Date,Time) %>%                                     
 unstack(Date~GPSpt) 
 
@@ -142,18 +142,16 @@ num_visits<-c(rep(NA,24))
 for (i in 1:length(GPSptDateMatrix)){
   num_visits[i]<-length(GPSptDateMatrix[[i]])
 }
- 
+
+## convert the list into a data.frame where each cell is a date visited or NA
+siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){ 
+  length(x) <- max(num_visits)
+  x })) %>% 
+  data.frame()
 
 
 
 
-rowMax <- max(sapply(GPSptDateMatrix, length))         ## rowMax=5, maximum number of visits to a site in the dataset
-
-SiteVisitDateMatrix<-do.call(rbind, lapply(GPSptDateMatrix, function(x){ 
-  length(x) <- rowMax 
-  x })) 
-SiteVisitDateMatrix<-data.frame(SiteVisitDateMatrix)
-SiteVisitDateMatrix$GPSpt<-rownames(GPSptDateMatrix)  
 
 ## create a matrix of values indicating if a GPSpt and Date combination is valid
 Junk<-XSurveys
