@@ -115,6 +115,12 @@ postTree<-(veg2016$T1+veg2016$T2+veg2016$T3)/3
 GPSptDateMatrix<- post_surveys %>% 
 distinct(GPSpt,Date,Time) %>%                                     
 unstack(Date~GPSpt) 
+
+## create a vector of number of visits per point
+num_visits<-c(rep(NA,24))
+for (i in 1:length(GPSptDateMatrix)){
+  num_visits[i]<-length(GPSptDateMatrix[[i]])
+}
  
 ## convert from list to data frame 
 ## this is not doing what I expected at all because the list elements do not seem to be in order
