@@ -48,7 +48,7 @@ detectHists <- read.table("./data/abunhists20160919", quote="\"",
 post_surveys<-read.csv("./data/ExperimentalSurveys.csv")
 noise_control_surveys<-read.csv("./data/ProcControlSurveys.csv")
 
-## vampling covariates
+## sampling covariates
 pre_sampling_covs<-read.csv("./data/SamplingCovs.csv")
 ##post_sampling_covs<-read.csv("./")                  ######## need to locate and arrange
 
@@ -99,7 +99,8 @@ veg2015<-veg2015[,1:42]        ## drop the notes column
 veg2015<- veg2015[veg2015$GPSpt %in% included,]
 veg2015[is.na(veg2015)] <- 0
 
-## remove BACI study points from the 2016 veg, these were for a concurrent side project
+## subset post-treatment data to exclude locations sampled for a concurrent side project 
+## (not in scope of this project)
 veg2016<- veg2016[veg2016$GPSpt %in% included,]
 
 ## before and after % mean shrub, grass, and tree cover for each point
