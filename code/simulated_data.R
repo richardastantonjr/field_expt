@@ -37,4 +37,14 @@ gamma <- runif(n=T-1, min=0.1, max=0.2) # Colonization probability
     psi[k] <- psi[k-1]*phi[k-1] + (1-psi[k-1])*gamma[k-1]
   }
  
+ ## y is the array of sites*visits*periods of interest. Analysis using colext function in unmarked
+ ## requires the modifications below
+ yy <- matrix(y, M, J*T)  ## Note this is easier to arrive at directly when massaging the real data
+                          ## a site by visit matrix of detection-nondetection- expanded into an
+                          ## array with nspec slices.
+ year <- matrix(c("01","02","03","04","05"),nrow(yy), T, byrow=TRUE)
+ 
+ 
+ ##covariates can also be supplied using the arguments siteCovs, yearlySiteCovs, and obsCovs. 
+ ## yearlySiteCovs must have M rows and T columns.
  
