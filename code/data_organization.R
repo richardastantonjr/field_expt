@@ -32,9 +32,9 @@
 ## The code is intended to be imlemented as follows.
 ## 1. source "data_organization.R" to import and manipulate data. The relevant products are:
 ##     A. Arrays of detection-nondetection events for pretreatment, treatment, and procedural 
-##        control surveys. The pretreatment array is 24 sites * 4 visits * XX species. The treament 
+##        control surveys. The pretreatment array is 24 sites * 4 visits * XX species. The treatment 
 ##        array is 24 sites * 10 surveys * XX species with a separate indicator the surveys are
-##        spread over 5 sampling periods with 2 visits/perios. The procedural control array is 12 sites * 
+##        spread over 5 sampling periods with 2 visits/period. The procedural control array is 12 sites * 
 ##        XX surveys * YY species.
 ##     B. Data frames of site covariates for the pre-treatment and treatment periods.
 ##     C. Data frames [?] of sampling covariates for the pretreatment, treatment, and procedural 
