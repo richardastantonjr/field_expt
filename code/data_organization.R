@@ -93,6 +93,7 @@ detectHists<-detectHists[which((points) %in% included),,]
 ## get unique species names for this data set
 pre_surveys<-pre_surveys[,1:5]  ## drop the NumOut and Total columns so the spatial scale of the 
                                 ## bird data and the vegetation measures match
+post_surveys<-post_surveys[,1:5]
 SpeciesNames<-sort(unique(pre_surveys$Species)) 
 ## drop species not detected within 50m; indices from a separate script
 SpeciesNames<-SpeciesNames[c(-1,-7,-8,-22,-60,-62,-88,-99,-117,-125,-129,-136,-139,
@@ -166,8 +167,8 @@ unstack(Date~GPSpt)
 
 ## create a vector of number of visits per point
 num_visits<-c(rep(NA,24))
-for (i in 1:length(GPSptDateMatrix)){
-  num_visits[i]<-length(GPSptDateMatrix[[i]])
+for (i in 1:length(GPSptDateList)){
+  num_visits[i]<-length(GPSptDateList[[i]])
 }
 
 ## convert the list into a data.frame where each cell is a date visited or NA if no
@@ -191,9 +192,13 @@ for (i in 1:nrow(post_surveys)){
   row_num_index<-which(post_surveys$GPSpt[i]==sites)
   row_num_contents<-
     siteDateMatrix[which(post_surveys$GPSpt[i]==sites),]
-  visit_numbers[[i]]<- which(index_location==post_surveys$Date[i]) ## there are two visits per day
+  visit_numbers[[i]]<- which(row_num_contents==post_surveys$Date[i]) ## there are two visits per day
   
 }
+
+## something weird here; line 2220 returns "0" when it should return "11 12". Why?
+
+
 ## Use mutate to create "visit_num" as a new column in post_surveys.
 mutate(post_surveys, visit_num = GPSpt, Date)
 ## Use use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
