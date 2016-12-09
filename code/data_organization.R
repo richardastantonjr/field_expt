@@ -105,6 +105,10 @@ detectHists<-detectHists[,1:4,which((SpeciesNames %in% unique(pre_surveys$Specie
 pre_survey_species<-subset(SpeciesNames,SpeciesNames %in% unique(pre_surveys$Species)==TRUE )
 pre_survey_species<-droplevels(pre_survey_species)
 
+## determine how many species were detected in the post_surveys
+post_survey_species<- post_surveys %>% 
+  distinct(Species) %>%                                     
+  droplevels()
 
 
 ## subset pre-treatment vegetation data
