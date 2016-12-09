@@ -193,10 +193,9 @@ for (i in 1:nrow(post_surveys)){
   row_num_contents<-
     siteDateMatrix[which(post_surveys$GPSpt[i]==sites),]
   visit_numbers[[i]]<- which(row_num_contents==post_surveys$Date[i]) ## there are two visits per day
-  
 }
 
-## something weird here; line 2220 returns "0" when it should return "11 12". Why?
+
 
 
 ## Use mutate to create "visit_num" as a new column in post_surveys.
