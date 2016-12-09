@@ -29,7 +29,7 @@
 ## active. We only recorded active nests. At each active nest we recorded the stage at which 
 ## it was discovered, i.e. empty, eggs, nestlings, the date, and the species.
 
-## The code is intended to be imlemented as follows.
+## The code is intended to be implemented as follows.
 ## 1. source "data_organization.R" to import and manipulate data. The relevant products are:
 ##     A. Arrays of detection-nondetection events for pretreatment, treatment, and procedural 
 ##        control surveys. The pretreatment array is 24 sites * 4 visits * XX species. The treatment 
@@ -160,19 +160,16 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
   data.frame()
 
 
+## create empty XX species by 24 sites by 14 visits array to fill with counts as appropriate
+post_detections<-array(NA,dim = c(24,14))
 
 
-
-## create a matrix of values indicating if a GPSpt and Date combination is valid
-Junk<-XSurveys
-for (i in 1:length(unique(Surveys$Species))){
-  for (j in 1:length(unique(Surveys$GPSpt))){
-    Junk[j,,i]<-colnames(XSurveys[,,i]) %in% SiteVisitDateMatrix[j,1:5]}}
 
 ## work with sampling covariates for the experimental surveys
 
 ##-----------------------------------------------------------------------------------------------------------
-## Naive occupancy for the pre-surveys
+## Naive occupancy for the pre-surveys; useful for preliminary analysis and because
+## low occurrence can bias occupancy models so we may wish to exclude rare species
 ##-----------------------------------------------------------------------------------------------------------
   naive_psi_pre<-data.frame()
   for (i in 1:length(pre_survey_species)){
