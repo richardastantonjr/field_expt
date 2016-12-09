@@ -156,6 +156,8 @@ traits<-traits[,c(1:7,11)]
 ###-----------------------------------------------------------------------------------
 ## manipulate post_surveys to get a site*period*visit*species array and a table
 ## of sampling covariates suitable for occupancy modeling
+## this will need augmentation so any species detected pre but not post are represented 
+## explicitly as nondetections
 ##------------------------------------------------------------------------------------                                   
 ##create a list of the dates when each location was sampled
 GPSptDateList<- post_surveys %>% 
@@ -168,7 +170,8 @@ for (i in 1:length(GPSptDateMatrix)){
   num_visits[i]<-length(GPSptDateMatrix[[i]])
 }
 
-## convert the list into a data.frame where each cell is a date visited or NA
+## convert the list into a data.frame where each cell is a date visited or NA if no
+## visit occurred
 siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){ 
   length(x) <- max(num_visits)
   x })) %>% 
