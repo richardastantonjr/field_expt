@@ -115,6 +115,10 @@ noise_control_survey_species<- noise_control_surveys %>%
   distinct(Species) %>%                                     
   droplevels()
 
+## determine how many and which species occur in the pre and post-surveys combined and save for 
+## later use; there are 134
+pre_post_combined_spp <- unique(c(levels(pre_survey_species), levels(post_survey_species$Species)))
+
 ## subset pre-treatment vegetation data
 veg2015<-veg2015[,1:42]        ## drop the notes column
 veg2015<- veg2015[veg2015$GPSpt %in% included,]
