@@ -183,8 +183,17 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
 ## create an empty 24 sites by 14 visits by 134 species array to fill with counts as appropriate
 post_detections<-array(NA,dim = c(24,14,134))
 
-## use siteDateMatix to derive a visit number from the date and GPSpt of a survey.
-
+## use siteDateMatrix to derive a visit number from the Date and GPSpt of a survey.
+# name the position in siteDateMatrix that matches the GPspt and Date in each row of post_surveys
+sites<-levels(as.factor(post_surveys$GPSpt))
+visit_num<-NULL
+for (i in 1:nrow(post_surveys)){
+  row_num_index<-which(post_surveys$GPSpt[i]==sites)
+  row_num_contents<-
+    siteDateMatrix[which(post_surveys$GPSpt[i]==sites),]
+  visit_num<- which(index_location==post_surveys$Date[i]) ## there are two visits per day
+  
+}
 ## Use mutate to create "visit_num" as a new column in post_surveys.
 mutate(post_surveys, visit_num = GPSpt, Date)
 ## Use use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
