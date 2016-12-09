@@ -186,12 +186,12 @@ post_detections<-array(NA,dim = c(24,14,134))
 ## use siteDateMatrix to derive a visit number from the Date and GPSpt of a survey.
 # name the position in siteDateMatrix that matches the GPspt and Date in each row of post_surveys
 sites<-levels(as.factor(post_surveys$GPSpt))
-visit_num<-NULL
+visit_numbers<-list()    ## a list of nrow(post_surveys) objects with 2 integers in each
 for (i in 1:nrow(post_surveys)){
   row_num_index<-which(post_surveys$GPSpt[i]==sites)
   row_num_contents<-
     siteDateMatrix[which(post_surveys$GPSpt[i]==sites),]
-  visit_num<- which(index_location==post_surveys$Date[i]) ## there are two visits per day
+  visit_numbers[[i]]<- which(index_location==post_surveys$Date[i]) ## there are two visits per day
   
 }
 ## Use mutate to create "visit_num" as a new column in post_surveys.
