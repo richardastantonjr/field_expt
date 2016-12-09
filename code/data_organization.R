@@ -105,11 +105,15 @@ detectHists<-detectHists[,1:4,which((SpeciesNames %in% unique(pre_surveys$Specie
 pre_survey_species<-subset(SpeciesNames,SpeciesNames %in% unique(pre_surveys$Species)==TRUE )
 pre_survey_species<-droplevels(pre_survey_species)
 
-## determine how many species were detected in the post_surveys
+## determine how many and which species were detected in the post_surveys
 post_survey_species<- post_surveys %>% 
   distinct(Species) %>%                                     
   droplevels()
 
+## determine determine how many and which species were detected in the noise_control_surveys
+noise_control_survey_species<- noise_control_surveys %>% 
+  distinct(Species) %>%                                     
+  droplevels()
 
 ## subset pre-treatment vegetation data
 veg2015<-veg2015[,1:42]        ## drop the notes column
