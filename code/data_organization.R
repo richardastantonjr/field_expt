@@ -103,6 +103,9 @@ pre_surveys<-pre_surveys[pre_surveys$GPSpt %in% included,]
 ## all but one are NA because not surveyed
 detectHists<-detectHists[,1:4,which((SpeciesNames %in% unique(pre_surveys$Species))==TRUE )]
 pre_survey_species<-subset(SpeciesNames,SpeciesNames %in% unique(pre_surveys$Species)==TRUE )
+pre_survey_species<-droplevels(pre_survey_species)
+
+
 
 ## subset pre-treatment vegetation data
 veg2015<-veg2015[,1:42]        ## drop the notes column
@@ -160,8 +163,8 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
   data.frame()
 
 
-## create empty XX species by 24 sites by 14 visits array to fill with counts as appropriate
-post_detections<-array(NA,dim = c(24,14))
+## create empty 24 sites by 14 visits by >=103 species  array to fill with counts as appropriate
+post_detections<-array(NA,dim = c(24,14,103))
 
 
 
