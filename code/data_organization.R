@@ -178,9 +178,17 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
   data.frame()
 
 
-## create empty 24 sites by 14 visits by >=103 species  array to fill with counts as appropriate
-post_detections<-array(NA,dim = c(24,14,103))
+## create an empty 24 sites by 14 visits by 134 species array to fill with counts as appropriate
+post_detections<-array(NA,dim = c(24,14,134))
 
+## use siteDateMatix to derive a visit number from the date and GPSpt of a survey.
+## Use mutate to create "visit_num" as a new column in post_surveys.
+## Use use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
+## the proper indices in the array "post_detections."
+## Add the proper species names to 134-114=20 slices that were detected pre but not post
+## Convert NA to o for the indices applicable to these species
+## My proposal was to sample 10 times over 5 sampling periods. Subset post_detections to remove
+## visits 11-14 from the array
 
 
 ## work with sampling covariates for the experimental surveys
