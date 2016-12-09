@@ -176,13 +176,17 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
   length(x) <- max(num_visits)
   x })) %>% 
   data.frame()
-
+  colnames(siteDateMatrix)<-c("first","second","third","fourth","fifth","sixth",
+                              "seventh", "eighth","ninth","tenth","eleventh","twelfth",
+                              "thirteenth","fourteenth")
 
 ## create an empty 24 sites by 14 visits by 134 species array to fill with counts as appropriate
 post_detections<-array(NA,dim = c(24,14,134))
 
 ## use siteDateMatix to derive a visit number from the date and GPSpt of a survey.
+
 ## Use mutate to create "visit_num" as a new column in post_surveys.
+mutate(post_surveys, visit_num = GPSpt, Date)
 ## Use use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
 ## the proper indices in the array "post_detections."
 ## Add the proper species names to 134-114=20 slices that were detected pre but not post
