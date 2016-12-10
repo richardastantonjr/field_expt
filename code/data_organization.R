@@ -201,6 +201,13 @@ visit_numbers<-do.call(rbind, lapply(visit_numbers , function(x){
   x })) %>% 
   data.frame()
 
+## determine which visit number calculations are off because NA is one option, meaning either there
+## was only one survey that day or an uncorrected error remains in the data, i.e. wrong date or
+## location. It looks like 3 of these exist.
+which(is.na(visit_numbers$X2)==TRUE)
+post_surveys[375,]  ## 20151031
+post_surveys[2489,] ## 20151030
+post_surveys[2556,] ## 20151202
 
 ## Use mutate to create "visit_num" as a new column in post_surveys.
 mutate(post_surveys, visit_num = GPSpt, Date)
