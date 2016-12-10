@@ -195,7 +195,11 @@ for (i in 1:nrow(post_surveys)){
   visit_numbers[[i]]<- which(row_num_contents==post_surveys$Date[i]) ## there are two visits per day
 }
 
-
+## convert the visit_numbers list into a data frame 
+visit_numbers<-do.call(rbind, lapply(visit_numbers , function(x){ 
+  length(x) <- 2 ## number of visits that can share a date and location
+  x })) %>% 
+  data.frame()
 
 
 ## Use mutate to create "visit_num" as a new column in post_surveys.
