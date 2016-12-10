@@ -39,6 +39,10 @@
 ##     B. Data frames of site covariates for the pre-treatment and treatment periods.
 ##     C. Data frames [?] of sampling covariates for the pretreatment, treatment, and procedural 
 ##        control surveys.
+
+## I bit off more than I could chew but the content should demonstrate familiarity with tidyr, for loops,
+## version control and functions. 
+
 ## packages----------------------------------------------------------
 library(tidyverse)
 library(vegan)
@@ -181,9 +185,6 @@ siteDateMatrix<-do.call(rbind, lapply(GPSptDateList , function(x){
                               "seventh", "eighth","ninth","tenth","eleventh","twelfth",
                               "thirteenth","fourteenth")
 
-## create an empty 24 sites by 14 visits by 134 species array to fill with counts as appropriate
-post_detections<-array(NA,dim = c(24,14,134))
-
 ## use siteDateMatrix to derive a visit number from the Date and GPSpt of a survey.
 # name the position in siteDateMatrix that matches the GPspt and Date in each row of post_surveys
 sites<-levels(as.factor(post_surveys$GPSpt))
@@ -210,9 +211,24 @@ post_surveys[2489,] ## 20151030
 post_surveys[2556,] ## 20151202
 
 ## Use mutate to create "visit_num" as a new column in post_surveys.
-mutate(post_surveys, visit_num = GPSpt, Date)
-## Use use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
+post_surveys<-mutate(post_surveys, visit_num = visit_numbers$X1)  ## this is wrong but using as a placeholder
+
+## create an empty 24 sites by 14 visits by 134 species array to fill with counts as appropriate
+post_detections<-array(NA,dim = c(24,14,134))
+
+## This remains incomplete
+## Use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
 ## the proper indices in the array "post_detections."
+#j=1; k=1
+#for (i in 1:nrow(post_surveys)){
+#  post_detections[i,j,k]<-post_surveys$GPSpt[i]
+#}
+#  post_detections[,,]<-post_surveys$visit_num[i]
+#  post_detections[,,]<-post_surveys$Species
+#}
+      
+   
+
 ## Add the proper species names to 134-114=20 slices that were detected pre but not post
 ## Convert NA to o for the indices applicable to these species
 ## My proposal was to sample 10 times over 5 sampling periods. Subset post_detections to remove
