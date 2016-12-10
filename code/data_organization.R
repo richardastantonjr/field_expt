@@ -1,6 +1,6 @@
 ## Code to prepare data for analysis of a field experiment conducted on the Mbuluzi game
 ## Reserve in Swaziland, 2014-2016 by Stanton and Subiya. Also preliminary analysis and
-## data visulaization.
+## data visualization.
 
 ## We added auditory cues of predator birds across a shrub cover gradient and compared it to
 ## controls matched for shrub cover. Procedural controls included dummy speakers visited 
