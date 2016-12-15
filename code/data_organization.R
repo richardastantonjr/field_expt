@@ -219,7 +219,6 @@ post_detections<-array(NA,dim = c(24,14,134))
 ## This remains incomplete
 ## Use GPS_pt, species, and visit visit_num data from each row in post_surveys to fill 
 ## the proper indices in the array "post_detections."
-<<<<<<< HEAD
 #j=1; k=1
 #for (i in 1:nrow(post_surveys)){
 #  post_detections[i,j,k]<-post_surveys$GPSpt[i]
@@ -227,15 +226,6 @@ post_detections<-array(NA,dim = c(24,14,134))
 #  post_detections[,,]<-post_surveys$visit_num[i]
 #  post_detections[,,]<-post_surveys$Species
 #}
-=======
-j=1; k=1
-for (i in 1:nrow(post_surveys)){
-  post_detections[i,j,k]<-post_surveys$GPSpt[i]
-}
-  post_detections[,,]<-post_surveys$visit_num[i]
-  post_detections[,,]<-post_surveys$Species
-}
->>>>>>> 24190f510d64395acc474d3b10d3b1eb07be6a45
       
    
 
